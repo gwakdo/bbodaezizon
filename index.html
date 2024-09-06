@@ -37,6 +37,7 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
         .navigation {
             display: flex;
@@ -52,6 +53,14 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .image-container {
+            margin-top: 20px;
+        }
+        .image-container img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+        }
     </style>
 </head>
 <body>
@@ -66,6 +75,11 @@
         <div class="date" id="date"></div>
         <div class="shift" id="shift"></div>
         <div class="routine" id="routine"></div>
+
+        <!-- 이미지 표시 -->
+        <div class="image-container">
+            <img src="myimage.jpg" alt="운동 이미지">
+        </div>
     </div>
 
     <script>
@@ -89,10 +103,10 @@
             "X6": null
         };
 
-        let selectedDate = new Date(); // 기본적으로 오늘 날짜
+        let selectedDate = new Date();
 
         function updateRoutineAndShift() {
-            const startDate = new Date(2024, 7, 25); // 2024년 8월 25일 시작
+            const startDate = new Date(2024, 7, 25);
             const daysSinceStart = Math.floor((selectedDate - startDate) / (1000 * 60 * 60 * 24));
             const currentCycleDay = routineCycle[daysSinceStart % routineCycle.length];
 
