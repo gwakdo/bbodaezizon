@@ -3,9 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Xcode Website</title>
+    <title>운동 루틴</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: pink;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .routine-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .routine-card h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .routine-card p {
+            font-size: 16px;
+            color: gray;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, World! This is a website created using Xcode!</h1>
+    <div class="container">
+        <div class="title">밍루의 운동루틴</div>
+        <div class="routine-card">
+            <h2>PUSH 루틴</h2>
+            <p>가슴 위주 루틴</p>
+            <p>• 머신 체스트플라이 - 웜업세트 3SET</p>
+            <p>• 인클라인 벤치프레스 (스미스) - 탑세트</p>
+        </div>
+        <div class="routine-card">
+            <h2>PULL 루틴</h2>
+            <p>등 위주 루틴</p>
+            <p>• 풀업 + 케이블 렛풀오버 - 워킹세트 3SET</p>
+            <p>• 렛풀다운 - 워킹세트 3SET</p>
+        </div>
+        <!-- 더 많은 운동 카드 추가 가능 -->
+    </div>
 </body>
 </html>
