@@ -38,11 +38,31 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .nav-button {
+            padding: 10px 20px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">오늘의 교대 근무와 운동 루틴</div>
+
+        <div class="navigation">
+            <button class="nav-button" id="prevDay">이전 날</button>
+            <button class="nav-button" id="nextDay">다음 날</button>
+        </div>
+
         <div class="date" id="date"></div>
         <div class="shift" id="shift"></div>
         <div class="routine" id="routine"></div>
@@ -50,7 +70,7 @@
 
     <script>
         const routineCycle = ["D1", "D2", "D3", "X1", "X2", "A1", "A2", "A3", "X3", "N1", "N2", "N3", "X4", "X5", "X6"];
-
+        
         const routines = {
             "D1": { name: "PUSH", description: "가슴 위주 루틴" },
             "D2": { name: "PULL", description: "풀다운 위주 루틴" },
@@ -60,23 +80,24 @@
             "A3": { name: "LEG/ARM", description: "하체/팔 루틴" },
             "N1": { name: "CHEST/BACK", description: "가슴/등 루틴" },
             "N2": { name: "SHOULDER/ARM", description: "어깨/팔 루틴" },
-            "N3": null, // 휴식
-            "X1": null, // 휴식
-            "X2": null, // 휴식
+            "N3": null,
+            "X1": null,
+            "X2": null,
             "X3": { name: "CARDIO", description: "유산소 루틴" },
-            "X4": null, // 휴식
-            "X5": null, // 휴식
-            "X6": null  // 휴식
+            "X4": null,
+            "X5": null,
+            "X6": null
         };
 
-        function getRoutineAndShift() {
+        let selectedDate = new Date(); // 기본적으로 오늘 날짜
+
+        function updateRoutineAndShift() {
             const startDate = new Date(2024, 7, 25); // 2024년 8월 25일 시작
-            const today = new Date();
-            const daysSinceStart = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+            const daysSinceStart = Math.floor((selectedDate - startDate) / (1000 * 60 * 60 * 24));
             const currentCycleDay = routineCycle[daysSinceStart % routineCycle.length];
 
             const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-            document.getElementById('date').textContent = today.toLocaleDateString('ko-KR', options);
+            document.getElementById('date').textContent = selectedDate.toLocaleDateString('ko-KR', options);
             
             let shift = "";
             if (currentCycleDay.startsWith("D")) {
@@ -99,7 +120,17 @@
             }
         }
 
-        getRoutineAndShift();
+        document.getElementById('prevDay').addEventListener('click', () => {
+            selectedDate.setDate(selectedDate.getDate() - 1);
+            updateRoutineAndShift();
+        });
+
+        document.getElementById('nextDay').addEventListener('click', () => {
+            selectedDate.setDate(selectedDate.getDate() + 1);
+            updateRoutineAndShift();
+        });
+
+        updateRoutineAndShift();
     </script>
 </body>
 </html>
