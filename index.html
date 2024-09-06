@@ -146,7 +146,12 @@
         <div class="timer" id="timer">00:00:00</div>
         <div class="timer-buttons">
             <button class="timer-button" id="startTimer">운동 시작</button>
+            <button class="timer-button" id="resetTimer">타이머 초기화</button>
             <button class="timer-button" id="stopTimer">운동 종료</button>
+        </div>
+
+
+            
         </div>
     </div>
 
@@ -294,13 +299,21 @@
                 document.getElementById('timer').textContent = `${hours}:${minutes}:${seconds}`;
             }, 1000);
         }
-
+        
         function stopTimer() {
             clearInterval(timerInterval);
+        }
+        
+        function resetTimer() {
+            clearInterval(timerInterval);
+            totalSeconds = 0;
+            document.getElementById('timer').textContent = "00:00:00";
         }
 
         document.getElementById('startTimer').addEventListener('click', startTimer);
         document.getElementById('stopTimer').addEventListener('click', stopTimer);
+        document.getElementById('resetTimer').addEventListener('click', resetTimer);
+        
     </script>
 </body>
 </html>
