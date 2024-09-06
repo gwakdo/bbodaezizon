@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교대 근무와 운동 루틴</title>
+    <title>뽀대지존의 운동뿌수기</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Gamja Flower', cursive;
             background-color: #ffc0cb;
             margin: 0;
             padding: 0;
@@ -18,30 +20,14 @@
             padding: 20px;
         }
         .title {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .date {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-        .shift {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .routine {
-            font-size: 16px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
         .navigation {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
         }
         .nav-button {
@@ -53,29 +39,63 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .date {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 20px;
+        }
+        .shift {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .routine {
+            font-size: 16px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
         .exercise-list {
             text-align: left;
             margin-top: 10px;
+        }
+        .exercise-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .exercise-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .image-container {
+            margin-top: 20px;
+        }
+        .image-container img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">오늘의 교대 근무와 운동 루틴</div>
+        <div class="title">뽀대지존의 운동뿌수기</div>
 
         <div class="navigation">
             <button class="nav-button" id="prevDay">이전 날</button>
+            <div class="date" id="date"></div>
             <button class="nav-button" id="nextDay">다음 날</button>
         </div>
-
-        <div class="date" id="date"></div>
-        <div class="shift" id="shift"></div>
-        <div class="routine" id="routine"></div>
 
         <!-- 이미지 표시 -->
         <div class="image-container">
             <img src="myimage.jpg" alt="운동 이미지">
         </div>
+
+        <div class="shift" id="shift"></div>
+        <div class="routine" id="routine"></div>
     </div>
 
     <script>
@@ -166,7 +186,7 @@
                 let routineContent = `<strong>${routine.name}</strong><br>${routine.description}`;
                 routineContent += "<ul class='exercise-list'>";
                 routine.exercises.forEach(function(exercise) {
-                    routineContent += `<li>${exercise}</li>`;
+                    routineContent += `<li class="exercise-item"><input type="checkbox"> ${exercise}</li>`;
                 });
                 routineContent += "</ul>";
                 document.getElementById('routine').innerHTML = routineContent;
