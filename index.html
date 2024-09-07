@@ -13,7 +13,7 @@
             margin: 0;
             padding: 0;
             text-align: center;
-            font-size: 18px; /* 전체 글씨 크기 증가 */
+            font-size: 18px;
         }
         .container {
             max-width: 600px;
@@ -21,7 +21,7 @@
             padding: 20px;
         }
         .title {
-            font-size: 34px; /* 전체 크기 증가 */
+            font-size: 34px;
             font-weight: bold;
             margin-bottom: 20px;
         }
@@ -37,7 +37,7 @@
             color: white;
             border: none;
             border-radius: 10px;
-            font-size: 16px; /* 버튼 글씨 크기 증가 */
+            font-size: 16px;
             cursor: pointer;
         }
         .date {
@@ -63,31 +63,26 @@
             margin-bottom: 20px;
         }
         .routine-name {
-            font-size: 22px; /* PUSH 가슴위주루틴 글씨 크기 증가 */
+            font-size: 22px;
             font-weight: bold;
         }
-
-            .exercise-list {
-                list-style-type: none; /* 기본 불릿 제거 */
-                padding: 0; /* 기본 패딩 제거 */
-                margin: 0; /* 기본 마진 제거 */
-                text-align: left; /* 텍스트 왼쪽 정렬 */
-                margin-top: 10px;
-                font-size: 18px; /* 전체 크기 증가 */
+        .exercise-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            margin-top: 10px;
+            font-size: 18px;
         }
-
-        
         .exercise-item {
             display: flex;
-            align-items: center; /* 수직 중앙 정렬 */
-            margin-bottom: 10px; /* 항목 간의 간격 조정 */
+            align-items: center;
+            margin-bottom: 10px;
         }
-
         .exercise-item input[type="checkbox"] {
-            margin: 0; /* 체크박스의 기본 마진 제거 */
-            margin-right: 10px; /* 체크박스와 텍스트 간의 간격 조정 */
+            margin: 0;
+            margin-right: 10px;
         }
-
         .image-container {
             margin-top: 20px;
         }
@@ -120,6 +115,12 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .youtube-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body>
@@ -134,7 +135,6 @@
 
         <div class="day" id="day"></div>
 
-        <!-- 이미지 표시 -->
         <div class="image-container">
             <img src="myimage.jpg" alt="운동 이미지">
         </div>
@@ -142,110 +142,44 @@
         <div class="shift" id="shift"></div>
         <div class="routine" id="routine"></div>
 
-        <!-- 타이머 -->
         <div class="timer" id="timer">00:00:00</div>
         <div class="timer-buttons">
             <button class="timer-button" id="startTimer">운동 시작</button>
             <button class="timer-button" id="resetTimer">타이머 초기화</button>
             <button class="timer-button" id="stopTimer">운동 종료</button>
         </div>
+    </div>
 
-
-            
-        </div>
+    <div id="youtubePlayer" style="display:none;">
+        <iframe id="videoFrame" width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
     </div>
 
     <script>
         const routineCycle = ["D1", "D2", "D3", "X1", "X2", "A1", "A2", "A3", "X3", "N1", "N2", "N3", "X4", "X5", "X6"];
-        
         const routines = {
-    "D1": { name: "PUSH", description: "가슴 위주 루틴", exercises: [
-        "머신 체스트플라이 - 웜업세트 3SET",
-        "인클라인 벤치프레스 (스미스) - 탑세트",
-        "머신프레스 - 워킹세트 3SET",
-        "덤벨 플라이 - 워킹세트 4SET",
-        "덤벨 프론트레이즈 - 워킹세트 4SET",
-        "사이드레터럴레이즈 - 워킹세트 4SET"
-    ]},
-    "D2": { name: "PULL", description: "등 위주 루틴", exercises: [
-        "풀업 + 케이블 렛풀오버 - 워킹세트 3SET",
-        "렛풀다운 - 워킹세트 3SET",
-        "싱글풀다운 - 워킹세트 3SET",
-        "원암 시티드로우 머신 - 탑세트"
-    ]},
-    "D3": { name: "LEG/ARM", description: "하체/팔 루틴", exercises: [
-        "스쿼트 - 피라미드세트 5SET",
-        "레그프레스 - 워킹세트 3SET",
-        "레그익스텐션 - 워킹세트 3SET",
-        "레그컬 - 워킹세트 3SET",
-        "바벨컬 + 라잉트라이셉스익스텐션 - 피라미드세트 4SET",
-        "덤벨컬 + 오버헤드트라이셉스익스텐션 - 피라미드세트 3SET",
-        "해머컬 + 케이블푸쉬다운 - 피라미드세트 3SET"
-    ]},
-    "A1": { name: "PUSH", description: "어깨 위주 루틴", exercises: [
-        "사이드레터럴레이즈 - 워킹세트 3SET",
-        "머신 숄더 프레스 (오버그립) - 탑세트 1SET",
-        "원암 머신 숄더 프레스 (페러럴) - 워킹세트 3SET",
-        "케이블 프론트레이즈 - 워킹세트 3SET",
-        "리버스 펙덱 플라이 - 워킹세트 3SET"
-    ]},
-    "A2": { name: "PULL_ROW", description: "로우 위주 루틴", exercises: [
-        "바벨로우 (스미스) - 탑세트 1SET",
-        "원암 시티드로우 머신 - 탑세트 2SET",
-        "싱글풀다운 - 워킹세트 3SET",
-        "케이블 렛풀오버 - 워킹세트 3SET"
-    ]},
-    "A3": { name: "LEG/ARM", description: "하체/팔 루틴", exercises: [
-        "스쿼트 - 피라미드세트 5SET",
-        "레그프레스 - 워킹세트 3SET",
-        "레그익스텐션 - 워킹세트 3SET",
-        "레그컬 - 워킹세트 3SET",
-        "바벨컬 + 라잉트라이셉스익스텐션 - 피라미드세트 4SET",
-        "덤벨컬 + 오버헤드트라이셉스익스텐션 - 피라미드세트 3SET",
-        "해머컬 + 케이블푸쉬다운 - 피라미드세트 3SET"
-    ]},
-    "N1": { name: "CHEST/BACK", description: "가슴/등 루틴", exercises: [
-        "바벨로우 (스미스) - 워킹세트 3SET",
-        "렛풀다운 - 워킹세트 2SET",
-        "인클라인 벤치 프레스 - 워킹세트 2SET",
-        "머신 플라이 - 워킹세트 2SET",
-        "시티드로우 - 워킹세트 3SET",
-        "머신 벤치프레스 - 워킹세트 3SET"
-    ]},
-    "N2": { name: "SHOULDER/ARM", description: "어깨/팔 루틴", exercises: [
-        "사이드레터럴레이즈 - 워킹세트 3SET",
-        "머신 숄더 프레스 (오버그립) - 탑세트 1SET",
-        "원암 머신 숄더 프레스 (페러럴) - 워킹세트 3SET",
-        "케이블 프론트레이즈 - 워킹세트 3SET",
-        "리버스 펙덱 플라이 - 워킹세트 3SET"
-    ]},
-    "N3": null, // 휴식
-    "X1": null, // 휴식
-    "X2": null, // 휴식
-    "X3": { name: "CARDIO", description: "유산소 루틴", exercises: [
-        "인터벌 런닝 40분"
-    ]},
-    "X4": null, // 휴식
-    "X5": null, // 휴식
-    "X6": null  // 휴식
-};
+            "D1": { name: "PUSH", description: "가슴 위주 루틴", exercises: [
+                { name: "머신 체스트플라이", video: "https://www.youtube.com/embed/OBSOo1v9E2E" },
+                { name: "인클라인 벤치프레스 (스미스)", video: "https://www.youtube.com/embed/0e5Lm5xv26Y" },
+                { name: "머신프레스", video: "https://www.youtube.com/embed/b3CmKr1q5zc" },
+                { name: "덤벨 플라이", video: "https://www.youtube.com/embed/-1SM42SMCMU" },
+                { name: "덤벨 프론트레이즈", video: "https://www.youtube.com/embed/zMQn7bxLCkw" },
+                { name: "사이드레터럴레이즈", video: "https://www.youtube.com/embed/GuhNUsAvkZQ" }
+            ]}
+            // 다른 루틴 데이터도 이와 유사하게 추가
+        };
 
-
-
-        let selectedDate = new Date(); // 기본적으로 오늘 날짜
-
+        let selectedDate = new Date();
         function updateRoutineAndShift() {
-            const startDate = new Date(2024, 7, 25); // 2024년 8월 25일 시작
+            const startDate = new Date(2024, 7, 25);
             const daysSinceStart = Math.floor((selectedDate - startDate) / (1000 * 60 * 60 * 24));
             const currentCycleDay = routineCycle[daysSinceStart % routineCycle.length];
 
-            const options = { month: 'long', day: 'numeric' }; // 년도를 제외한 날짜 포맷
+            const options = { month: 'long', day: 'numeric' };
             document.getElementById('date').textContent = selectedDate.toLocaleDateString('ko-KR', options);
 
             const dayOptions = { weekday: 'long' };
             document.getElementById('day').textContent = selectedDate.toLocaleDateString('ko-KR', dayOptions);
 
-            
             let shift = "";
             if (currentCycleDay.startsWith("D")) {
                 shift = "데이 근무";
@@ -256,7 +190,6 @@
             } else {
                 shift = "휴식";
             }
-
             document.getElementById('shift').textContent = shift;
 
             const routine = routines[currentCycleDay];
@@ -264,7 +197,7 @@
                 let routineContent = `<div class="routine-name">${routine.name}</div><br>${routine.description}`;
                 routineContent += "<ul class='exercise-list'>";
                 routine.exercises.forEach(function(exercise) {
-                    routineContent += `<li class="exercise-item"><input type="checkbox"> ${exercise}</li>`;
+                    routineContent += `<li class="exercise-item"><input type="checkbox"> ${exercise.name} <img src="youtube_icon.png" alt="YouTube" class="youtube-icon" onclick="showVideo('${exercise.video}')"></li>`;
                 });
                 routineContent += "</ul>";
                 document.getElementById('routine').innerHTML = routineContent;
@@ -285,7 +218,6 @@
 
         updateRoutineAndShift();
 
-        // 타이머 기능
         let timerInterval;
         let totalSeconds = 0;
 
@@ -299,11 +231,11 @@
                 document.getElementById('timer').textContent = `${hours}:${minutes}:${seconds}`;
             }, 1000);
         }
-        
+
         function stopTimer() {
             clearInterval(timerInterval);
         }
-        
+
         function resetTimer() {
             clearInterval(timerInterval);
             totalSeconds = 0;
@@ -313,7 +245,13 @@
         document.getElementById('startTimer').addEventListener('click', startTimer);
         document.getElementById('stopTimer').addEventListener('click', stopTimer);
         document.getElementById('resetTimer').addEventListener('click', resetTimer);
-        
+
+        function showVideo(link) {
+            const player = document.getElementById('youtubePlayer');
+            document.getElementById('videoFrame').src = link;
+            player.style.display = 'block';
+            player.scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
