@@ -142,13 +142,6 @@
         <div class="shift" id="shift"></div>
         <div class="routine" id="routine"></div>
 
-        <!-- 타이머 -->
-        <div class="timer" id="timer">00:00:00</div>
-        <div class="timer-buttons">
-            <button class="timer-button" id="startTimer">타이머 시작</button>
-            <button class="timer-button" id="resetTimer">타이머 초기화</button>
-            <button class="timer-button" id="stopTimer">타이머 중지</button>
-        </div>
     </div>
 
     <script>
@@ -280,42 +273,6 @@
         });
 
         updateRoutineAndShift();
-
-        // 타이머 기능
-        let timerInterval;
-        let totalSeconds = 0;
-        
-        function startTimer() {
-            if (!timerInterval) { // 타이머가 이미 시작되지 않았다면 시작
-                timerInterval = setInterval(() => {
-                    totalSeconds++;
-                    updateTimerDisplay();
-                }, 1000);
-            }
-        }
-        
-        function stopTimer() {
-            clearInterval(timerInterval);
-            timerInterval = null;
-        }
-        
-        function resetTimer() {
-            stopTimer(); // 타이머를 중지
-            totalSeconds = 0;
-            updateTimerDisplay(); // 디스플레이를 00:00:00으로 업데이트
-        }
-        
-        function updateTimerDisplay() {
-            const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
-            const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
-            const seconds = String(totalSeconds % 60).padStart(2, '0');
-            document.getElementById('timer').textContent = `${hours}:${minutes}:${seconds}`;
-        }
-        
-        document.getElementById('startTimer').addEventListener('click', startTimer);
-        document.getElementById('stopTimer').addEventListener('click', stopTimer);
-        document.getElementById('resetTimer').addEventListener('click', resetTimer);
-
     </script>
 </body>
 </html>
